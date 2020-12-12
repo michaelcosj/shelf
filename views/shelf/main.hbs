@@ -1,0 +1,31 @@
+{{> nav user=user }}
+<div class="container">
+        <div class="section center">
+            {{#if shelves}}
+                <div class="row">
+                {{#each shelves}}
+                    <div class="col s12 m4">
+                        <div class="card color-tile darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title shelf-title">{{this.name}}</span>
+                        </div>
+                        <div class="card-action">
+                            <a href="/shelf/{{this._id}}">View</a>
+                            <a href="/shelf/edit/{{this._id}}"><i class="fas fa-edit"></i></a>
+                            <form action="/shelf/{{this._id}}?_method=DELETE" method="post" style="display: inline-block;">
+                                <button type="submit" class="method-sub-btn"><a><i class="far fa-trash-alt"></i></a></button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                {{/each}}
+                </div>
+            {{else}}
+                <p>Nothing to see here</p>
+            {{/if}}
+            {{#if message}}
+                <p>{{message}}</p>
+            {{/if}}
+            <a href="/shelf/newshelf" class="btn app-btn">ADD SHELF</a>
+        </div>
+</div>

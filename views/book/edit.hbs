@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row section center">
+      <form action="/book/edit/{{bookId}}?_method=PATCH" class="col s12" method="POST" enctype="multipart/form-data">
+        <div class="row">
+          <div class="input-field col s4">
+            <input id="title" type="text" class="validate" name="title">
+            <label for="title">Title</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="authors" type="text" class="validate" name="authors">
+            <label for="authors">Authors</label>
+          </div>
+          <div class="input-field col s2">
+            <input id="edition" type="text" class="validate" name="edition">
+            <label for="edition">Edition</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="description" class="materialize-textarea" name="description"></textarea>
+            <label for="description">Description</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="isbn" type="text" class="validate" name="isbn">
+            <label for="isbn">ISBN</label>
+          </div>
+          <div class="input-field col s2">
+            <input id="publishedDate" type="date" class="validate" name="publishedDate">
+            <label for="publishedDate" hidden>Date Published</label>
+          </div>
+          <div class="file-field input-field col s7">
+            <div class="btn" style="background-color: #202530;">
+              <span>File</span>
+              <input type="file" name="file" accept=".png,.jpg,.jpeg">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+        </div>
+        <button class="btn app-btn">Update</button>
+      </form>
+    </div>
+</div>

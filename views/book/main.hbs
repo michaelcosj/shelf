@@ -1,0 +1,74 @@
+{{> nav user=user }}
+<div class="container">
+    <div class="section card color-tile">
+        <div style="margin-left: 10px;">
+            <span class="card-title center">{{book.title}}</span>
+        </div>
+        <div class="row">
+            {{#if book.image}}
+            <div class="col s4 responsive-img card-image book-img">
+                <img src="/{{book.image}}">
+            </div> 
+            {{/if}}
+            <div class="col s8">
+                {{#if book.description}}
+                <div class="divider"></div>
+                <div class="section">
+                    <h6>Description</h6>
+                    <p>{{book.description}}</p>
+                {{/if}}
+                    <div class="divider"></div>
+                    <div class="row">
+                        {{#if book.isbn}}
+                            <div class="col s6">
+                                <p>ISBN</p>
+                                <p>{{book.isbn}}</p>
+                            </div>
+                        {{/if}}
+                        {{#if book.authors}}
+                            <div class="col s6">
+                                <p>Authors</p>
+                                <p>{{book.authors}}</p>
+                            </div>
+                        {{/if}}
+                        {{#if book.edition}}
+                            <div class="col s6">
+                                <p>Edition</p>
+                                <p>{{book.edition}}</p>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{!-- <div class="divider"></div> --}}
+            </div>
+            <div class="col s12 center">
+                {{#if borrows}}
+                    {{#each borrows}}
+                        <div class="divider"></div>
+                        <div class="section" style="text-align: left;">
+                            <h6>Borrower: {{this.name}}</h6>
+                            <div class="row">
+                                <div class="col s6">
+                                    <p>Date borrowed: {{formatDate this.dateBorrowed}}</p>
+                                </div>
+                                <div class="col s6">
+                                    <p>Due: {{formatDate this.dueDate}}</p>
+                                </div>
+                                <div class="col s12">
+                                    <p>Returned: {{this.returned}}</p>
+                                    {{#if this.returned}}
+                                        <p>Date returned: {{formatDate this.dateReturned}}</p>
+                                    {{else}}
+                                        <a href="/book/return/{{this._id}}" class="btn app-btn">Return</a>
+                                    {{/if}}
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            </div>    
+                    {{/each}}
+                {{/if}}
+                <a href="/book/borrow/{{book._id}}" class="btn app-btn" style="margin-top: 5px;">Borrow</a>
+            </div>
+        </div>
+    </div>
+</div>
