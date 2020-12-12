@@ -1,0 +1,31 @@
+{{> nav user=user }}
+<div class="container">
+        <div class="section center">
+            {{#if books}}
+                <div class="row">
+                    {{#each books}}
+                    <div class="col s12 m4">
+                        <div class="card color-tile">
+                            <div class="card-content">
+                                <span class="card-title shelf-title">{{this.title}}</span>
+                            </div>
+                            <div class="card-action">
+                                <a href="/book/{{this._id}}">View</a>
+                                <a href="/book/edit/{{this._id}}"><i class="fas fa-edit"></i></a>
+                                <form action="/book/{{this._id}}?_method=DELETE" method="post" style="display: inline-block;">
+                                    <button type="submit" class="method-sub-btn"><a><i class="far fa-trash-alt"></i></a></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <p>Nothing but dust...</p>
+            {{/if}}
+            {{#if message}}
+                <p>{{message}}</p>
+            {{/if}}
+            <a href="/shelf/newbook/{{shelfId}}" class="btn app-btn">ADD Book</a>
+        </div>
+</div>
