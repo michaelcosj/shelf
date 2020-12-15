@@ -1,6 +1,6 @@
 const Shelf = require("../../models/shelf.model");
 const Book = require("../../models/books.model");
-const deleteShelves = require("../../helpers/delete-shelves");
+const Borrow = require("../../models/borrow.model");
 
 // @route "/shelf"
 
@@ -26,8 +26,26 @@ const showShelves = async (req, res, next) => {
 // @desc DELETE Delete all shelves
 const deleteAllShelves = async (req, res, next) => {
   try {
-    const message = await deleteShelves(req.user._id);
-    res.status(200).json(message);
+    Shelf.find({ user: req.user._id }, (error, result) => {
+      if (error) {
+        console.log(error);
+        throw error;
+      } else {
+        if (result) {
+          result.forEach(async (shelf) => {
+            book = await Book.findOne({
+              shelf: shelf._id,
+            });
+            await Borrow.deleteMany({
+              book: book._id,
+            });
+          });
+        }
+      }
+    });
+    await Shelf.deleteMany({
+      user: userId,
+    }).then(res.redirect("/shelf"));
   } catch (error) {
     console.log(error);
     res.status(404).json({
@@ -95,7 +113,20 @@ const showBooks = async (req, res, next) => {
 // @desc DELETE Delete one shelf
 const deleteShelf = async (req, res, next) => {
   try {
-    await Book.deleteMany({ shelf: req.params.shelfId });
+    Shelf.findById(req.params.shelfId, async (error, shelf) => {
+      if (error) {
+        console.log(error);
+        throw error;
+      } else if (shelf) {
+        const book = await Book.findOne({
+          shelf: shelf._id,
+        });
+        await Borrow.deleteMany({
+          book: book._id,
+        });
+        await Book.deleteMany({ shelf: shelf._id });
+      }
+    });
     await Shelf.deleteOne({ _id: req.params.shelfId }).then(
       res.redirect("/shelf")
     );
