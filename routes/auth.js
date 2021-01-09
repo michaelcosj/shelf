@@ -17,7 +17,7 @@ passport.use(
           googleId: profile.id,
         }).lean();
         if (user) {
-          done(null, user);
+          return done(null, user);
         } else {
           user = await User.create({
             googleId: profile.id,
@@ -26,21 +26,21 @@ passport.use(
             displayName: profile.displayName,
             photoURL: profile.photos[0].value,
           });
-          done(null, user);
+          return done(null, user);
         }
       } catch (error) {
-        next(error);
+        return next(error);
       }
     }
   )
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, user);
+  return done(null, user);
 });
 
 passport.deserializeUser(function (obj, done) {
-  done(null, obj);
+  return done(null, obj);
 });
 
 // Auth routes
