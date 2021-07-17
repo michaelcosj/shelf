@@ -1,6 +1,6 @@
 # [shelf](https://shelfwebapp.herokuapp.com/)
 
-A simple library management web application for any kind of library.
+A simple library management web application for any personal libraries.
 
 # Features
 
